@@ -303,32 +303,6 @@
       cursor:pointer;
     }
 
-    .remove-btn{
-      background:none;
-      border:0;
-      color:#b00;
-      cursor:pointer;
-      font-weight:700;
-    }
-
-    /* MODAL DE IMAGEN */
-    #imgModal{
-      position:fixed;
-      top:0; left:0;
-      width:100%; height:100%;
-      background:rgba(0,0,0,.85);
-      display:none;
-      justify-content:center;
-      align-items:center;
-      z-index:999999;
-    }
-    #imgModal img{
-      max-width:90%;
-      max-height:90%;
-      border-radius:14px;
-      box-shadow:0 0 20px rgba(255,255,255,.2);
-    }
-
     @media (max-width:900px){
       .hero{grid-template-columns:1fr; padding:36px;}
       #cartPanel{width:100%; right:-120%; max-width:420px;}
@@ -343,6 +317,28 @@
       header{padding:16px;}
       .logo h1{font-size:24px;}
     }
+    /* ===== MODAL IMAGEN PRODUCTOS ===== */
+#imgModal{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.85);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+
+#imgModal img{
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 16px;
+  box-shadow: 0 0 30px rgba(255,255,255,0.25);
+  cursor: zoom-out;
+}
+
   </style>
 </head>
 
@@ -780,6 +776,25 @@ function addToCart(card){
 
    
     save();
+
+  /* ===== MODAL DE IMAGEN PRODUCTOS ===== */
+const modal = document.getElementById('imgModal');
+const modalImg = modal.querySelector('img');
+
+document.querySelectorAll('.card img').forEach(img => {
+  img.addEventListener('click', (e) => {
+    e.stopPropagation(); // no afecta al botón carrito
+    modalImg.src = img.src;
+    modal.style.display = 'flex';
+  });
+});
+
+modal.addEventListener('click', (e) => {
+  if (e.target !== modalImg) {
+    modal.style.display = 'none';
+  }
+});
+
   </script>
 </body>
 </html>
